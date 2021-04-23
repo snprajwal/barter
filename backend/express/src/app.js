@@ -1,0 +1,12 @@
+const login = require('./routes/login')
+const signup = require('./routes/signup')
+const { isAuth } = require('./middlewares/auth')
+const express = require('express')
+const app = express()
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.get('/', async (req, res) => res.send('Express is running'))
+app.use('/login', login)
+app.use('/signup', signup)
+app.listen(3000, () => console.log('Listening on port 3000'))
