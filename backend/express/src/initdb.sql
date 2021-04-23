@@ -1,9 +1,9 @@
+DROP DATABASE IF EXISTS medicart;
 DROP ROLE IF EXISTS express;
 CREATE ROLE express WITH LOGIN PASSWORD 'medicart';
 ALTER ROLE express CREATEDB;
 \c postgres express;
 
-DROP DATABASE IF EXISTS medicart;
 CREATE DATABASE medicart;
 \c medicart;
 
