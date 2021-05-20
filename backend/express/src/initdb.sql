@@ -7,10 +7,7 @@ ALTER ROLE express CREATEDB;
 CREATE DATABASE medicart;
 \c medicart;
 
-CREATE SCHEMA consumer;
-CREATE SCHEMA seller;
-
-CREATE TABLE consumer."user" (
+CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR,
 	email VARCHAR UNIQUE,
@@ -18,7 +15,7 @@ CREATE TABLE consumer."user" (
 	password VARCHAR
 );
 
-CREATE TABLE seller.product (
+CREATE TABLE products (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR,
 	price INTEGER

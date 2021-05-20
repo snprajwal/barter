@@ -2,6 +2,7 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 
 const isAuth = async (req, res, next) => {
+	if (!req.headers['authorization']) { return res.status(401).send('No token') }
 	const accessToken = req.headers['authorization'].split(' ')[1]
 	if (!accessToken) { return res.status(401).send('Invalid token') }
 	try {
