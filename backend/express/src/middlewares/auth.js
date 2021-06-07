@@ -1,5 +1,6 @@
-require('dotenv').config()
-const jwt = require('jsonwebtoken')
+import dotenv from 'dotenv'
+import jwt from 'jsonwebtoken'
+dotenv.config()
 
 const isAuth = async (req, res, next) => {
 	if (!req.headers['authorization']) { return res.status(401).send('No token') }
@@ -12,4 +13,4 @@ const isAuth = async (req, res, next) => {
 	} catch(err) { return res.status(401).send(err) }
 }
 
-module.exports = isAuth
+export default isAuth

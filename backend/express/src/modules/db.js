@@ -1,5 +1,7 @@
-require('dotenv').config()
-const { Pool } = require('pg')
+import dotenv from 'dotenv'
+import pg from 'pg'
+const { Pool } = pg
+dotenv.config()
 
 const pool = new Pool({
 	user: process.env.DB_USER,
@@ -31,4 +33,4 @@ const createProduct = async (name, price) => {
 	} catch (err) { console.log(err) }
 }
 
-module.exports = { getPass, createUser, createProduct }
+export { getPass, createUser, createProduct }

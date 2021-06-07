@@ -1,7 +1,7 @@
-const login = require('./routes/login')
-const signup = require('./routes/signup')
-const isAuth = require('./middlewares/auth')
-const express = require('express')
+import login from './routes/login.js'
+import signup from './routes/signup.js'
+import isAuth from './middlewares/auth.js'
+import express from 'express'
 const app = express()
 
 app.use(express.json())

@@ -1,4 +1,9 @@
 {
+	"name": "medicart-express",
+	"version": "1.0.0",
+	"main": "app.js",
+	"license": "MIT",
+	"type": "module",
 	"dependencies": {
 		"bcrypt": "^5.0.1",
 		"dotenv": "^8.2.0",
@@ -8,9 +13,5 @@
 	},
 	"scripts": {
 		"start": "node src/app.js"
-	},
-	"name": "express",
-	"version": "1.0.0",
-	"main": "app.js",
-	"license": "MIT"
+	}
 }
