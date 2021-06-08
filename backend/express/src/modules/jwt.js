@@ -1,6 +1,5 @@
-import dotenv from 'dotenv'
-import jwt from 'jsonwebtoken'
-dotenv.config()
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
 
 const genAccessToken = async (email) => {
 	return await jwt.sign({
@@ -19,4 +18,4 @@ const genRefreshToken = async (email, pass) => {
 	}, process.env.JWT_SECRET_KEY)
 }
 
-export { genAccessToken, genRefreshToken }
+module.exports = { genAccessToken, genRefreshToken }

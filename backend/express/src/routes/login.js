@@ -1,8 +1,7 @@
-import { getPass } from '../modules/db.js'
-import { genAccessToken, genRefreshToken } from '../modules/jwt.js'
-import bcrypt from 'bcrypt'
-import express from 'express'
-const router = express.Router()
+const { getPass } = require('../modules/db')
+const { genAccessToken, genRefreshToken } = require('../modules/jwt')
+const bcrypt = require('bcrypt')
+const router = require('express').Router()
 
 router.post('/', async (req, res) => {
 	const email = req.body.email
@@ -17,4 +16,4 @@ router.post('/', async (req, res) => {
 	} catch (err) { console.log(err) }
 })
 
-export default router
+module.exports = router

@@ -1,9 +1,8 @@
 {
 	"name": "medicart-express",
 	"version": "1.0.0",
-	"main": "app.js",
+	"main": "src/app.js",
 	"license": "MIT",
-	"type": "module",
 	"dependencies": {
 		"bcrypt": "^5.0.1",
 		"dotenv": "^8.2.0",

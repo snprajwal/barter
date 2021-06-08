@@ -1,7 +1,6 @@
-import { getPass, createUser } from '../modules/db.js'
-import bcrypt from 'bcrypt'
-import express from 'express'
-const router = express.Router()
+const { getPass, createUser } = require('../modules/db')
+const bcrypt = require('bcrypt')
+const router = require('express').Router()
 
 router.post('/', async (req, res) => {
 	const { name, phone, email, password } = req.body
@@ -14,4 +13,4 @@ router.post('/', async (req, res) => {
 	} catch (err) { console.log(err) }
 })
 
-export default router
+module.exports = router
