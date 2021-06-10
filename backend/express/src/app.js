@@ -1,3 +1,4 @@
+require('dotenv').config()
 const login = require('./routes/login')
 const signup = require('./routes/signup')
 const isAuth = require('./middlewares/auth')
