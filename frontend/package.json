@@ -1,0 +1,23 @@
+{
+  "name": "medicart-vue",
+  "version": "1.0.0",
+  "main": "src/index.html",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "dependencies": {
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
+  }
+}
