@@ -23,9 +23,9 @@ const createUser = async (name, email, phone, pass) => {
 	} catch (err) { console.log(err) }
 }
 
-const createProduct = async (name, price) => {
+const createProduct = async (name, quantity, price) => {
 	try {
-		await pool.query('INSERT INTO products (name, price) VALUES ($1, $2)', [name, price])
+		await pool.query('INSERT INTO products (name, quantity, price) VALUES ($1, $2, $3)', [name, quantity, price])
 		return console.log('New product created')
 	} catch (err) { console.log(err) }
 }

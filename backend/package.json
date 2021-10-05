@@ -1,5 +1,5 @@
 {
-	"name": "medicart-express",
+	"name": "barter-express",
 	"version": "1.0.0",
 	"main": "src/app.js",
 	"license": "MIT",

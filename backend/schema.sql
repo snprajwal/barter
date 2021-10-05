@@ -1,11 +1,11 @@
-DROP DATABASE IF EXISTS medicart;
+DROP DATABASE IF EXISTS barter;
 DROP ROLE IF EXISTS express;
-CREATE ROLE express WITH LOGIN PASSWORD 'medicart';
+CREATE ROLE express WITH LOGIN PASSWORD 'barter';
 ALTER ROLE express CREATEDB;
 \c postgres express;
 
-CREATE DATABASE medicart;
-\c medicart;
+CREATE DATABASE barter;
+\c barter;
 
 CREATE TABLE users (
 	id SERIAL PRIMARY KEY,
@@ -17,6 +17,8 @@ CREATE TABLE users (
 
 CREATE TABLE products (
 	id SERIAL PRIMARY KEY,
+	owner VARCHAR,
 	name VARCHAR,
+	quantity INTEGER,
 	price INTEGER
 );
