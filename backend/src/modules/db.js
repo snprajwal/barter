@@ -8,11 +8,12 @@ const pool = new Pool({
 	port: process.env.DB_PORT
 })
 
-const getPass = async (email) => {
+// Auth
+const getUser = async (email) => {
 	try {
-		const res = await pool.query('SELECT password FROM users WHERE email = $1', [email])
+		const res = await pool.query('SELECT id, password FROM users WHERE email = $1', [email])
 		if (!res.rows[0]) {return null}
-		return res.rows[0].password
+		return res.rows[0]
 	} catch (err) {console.log(err)}
 }
 
@@ -23,11 +24,105 @@ const createUser = async (name, email, phone, pass) => {
 	} catch (err) {console.log(err)}
 }
 
-const createProduct = async (name, quantity, price) => {
+// Wallet
+const getAmount = async (id) => {
 	try {
-		await pool.query('INSERT INTO products (name, quantity, price) VALUES ($1, $2, $3)', [name, quantity, price])
+		const res = await pool.query('SELECT SUM(amount) FROM transactions WHERE user_id = $1', [id])
+		if (!res.rows[0]) {return null}
+		return res.rows[0]
+	} catch (err) {console.log(err)}
+}
+
+const addAmount = async (id, amount) => {
+	try {
+		await pool.query('INSERT INTO transactions (user_id, transfer_type, amount) VALUES ($1, $2, $3)', [id, 'credit', amount])
+		return console.log('Amount credited')
+	} catch (err) {console.log(err)}
+}
+
+const withdrawAmount = async (id, amount) => {
+	try {
+		await pool.query('INSERT INTO transactions (user_id, transfer_type, amount) VALUES ($1, $2, $3)', [id, 'debit', -amount])
+		return console.log('Amount debited')
+	} catch (err) {console.log(err)}
+}
+
+// Products
+const listProducts = async () => {
+	try {
+		const res = await pool.query('SELECT name, price FROM products')
+		if (!res.rows.length) {return null}
+		return res.rows
+	} catch (err) {console.log(err)}
+}
+
+const createProduct = async (name, price) => {
+	try {
+		await pool.query('INSERT INTO products (name, price) VALUES ($1, $2)', [name, price])
 		return console.log('New product created')
 	} catch (err) {console.log(err)}
 }
 
-module.exports = {getPass, createUser, createProduct}
+const getProduct = async (id) => {
+	try {
+		const res = await pool.query('SELECT name, price FROM products WHERE id = $1', [id])
+		if (!res.rows[0]) {return null}
+		return res.rows[0]
+	} catch (err) {console.log(err)}
+}
+
+// Inventory
+const listInventoryItems = async () => {
+	try {
+		const res = await pool.query('SELECT * FROM inventory')
+		if (!res.rows.length) {return null}
+		return res.rows
+	} catch (err) {console.log(err)}
+}
+
+const addInventoryItem = async (productId, sellerId, quantity) => {
+	try {
+		await pool.query('INSERT INTO inventory VALUES ($1, $2, $3)', [productId, sellerId, quantity])
+		return console.log('Inventory item added')
+	} catch (err) {console.log(err)}
+}
+
+const getInventoryItem = async (productId) => {
+	try {
+		const res = await pool.query('SELECT * FROM inventory WHERE product_id = $1', [productId])
+		if (!res.rows.length) {return null}
+		return res.rows
+	} catch (err) {console.log(err)}
+}
+
+// Orders
+const listOrders = async (id) => {
+	try {
+		const res = await pool.query('SELECT product_id, quantity, price FROM orders WHERE buyer_id = $1', [id])
+		if (!res.rows.length) {return null}
+		return res.rows
+	} catch (err) {console.log(err)}
+}
+
+const createOrder = async (buyerId, productId, quantity, price) => {
+	try {
+		await pool.query('INSERT INTO orders (buyer_id, product_id, quantity, price) VALUES ($1, $2, $3, $4)', [buyerId, productId, quantity, price])
+		return console.log('Order created')
+	} catch (err) {console.log(err)}
+}
+
+const getOrder = async (id) => {
+	try {
+		const res = await pool.query('SELECT product_id, quantity, price FROM orders WHERE buyer_id = $1', [id])
+		if (!res.rows[0]) {return null}
+		return res.rows[0]
+	} catch (err) {console.log(err)}
+}
+
+module.exports = {
+	getUser, createUser, createProduct,
+	getAmount, addAmount, withdrawAmount,
+	listProducts, createProduct, getProduct,
+	listInventoryItems, addInventoryItem, getInventoryItem,
+	listOrders, getOrder, createOrder
+}

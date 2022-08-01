@@ -1,4 +1,4 @@
-const {getPass, createUser} = require('../modules/db')
+const {getUser, createUser} = require('../modules/db')
 const bcrypt = require('bcrypt')
 const {check, validationResult} = require('express-validator')
 const router = require('express').Router()
@@ -15,14 +15,14 @@ router.post('/', [
 
 	const {name, phone, email, password} = req.body
 	try {
-		let pass = await getPass(email)
-		if (pass) {
+		const user = await getUser(email)
+		if (user) {
 			return res.status(500).json({
 				'error': 'ERR_USER_EXISTS',
 				'msg': 'User already exists, try logging in'
 			})
 		}
-		pass = await bcrypt.hash(password, 5)
+		const pass = await bcrypt.hash(password, 5)
 		await createUser(name, email, phone, pass)
 		return res.status(201).json({'msg': 'New user created'})
 	} catch (err) {console.log(err)}

@@ -7,6 +7,7 @@ const isAuth = async (req, res, next) => {
 	try {
 		const payload = await jwt.verify(accessToken, process.env.JWT_SECRET_KEY)
 		if (payload.type !== 'access') {return res.status(401).json({'error': 'ERR_INVALID_TOKEN'})}
+		req.body.userId = payload.id
 		return next()
 	} catch (err) {return res.status(401).json({"error": err})}
 }
