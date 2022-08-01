@@ -4,46 +4,95 @@
 - Access the server at `localhost:3000`
 
 # API Reference
-
-## GET `/ping`
+## Unauthorized
+### GET `/ping`
 Just a healthcheck, responds with `pong`.
 
-## POST `/login`
+### POST `/login`
 - Body:
-
-        {
-            "email": <email>,
-            "password": <password>
-        }
+    - "email"
+    - "password"
 
 - Response:
+    - "accessToken"
+    - "refreshToken"
 
-        {
-            "accessToken": <token>,
-            "refreshToken": <token>
-        }
+### POST `/signup`
+Body:
+- "email"
+- "password"
+- "name"
+- "phone"
 
-## POST `/signup`
-- Body:
+## Authorized
+All requests must contain the header `Authorization: Bearer <accessToken>`.
 
-        {
-            "email": <email>,
-            "password": <password>,
-            "name": <name>,
-            "phone": <phone>
-        }
+### GET `/`
+Redirects to `/products`
 
-- Response:
+### Products
+#### GET `/`
+Response: An array of products in the format:
+- "name"
+- "price"
 
-        {
-            "msg": "New user created"
-        }
+#### POST `/new`
+Body:
+- "name"
+- "price"
 
-## GET `/`
-- Headers:
-    - `Authorization: Bearer <accessToken>`
-- Response:
+#### POST `/<productId>`
+Response:
+- "name"
+- "price"
 
-        {
-            "msg": "Welcome home!"
-        }
+### Wallet
+#### GET `/`
+Response:
+- "balance"
+
+#### POST `/deposit`
+Body:
+- "amount"
+
+#### POST `/withdraw`
+Body:
+- "amount"
+
+### Inventory
+#### GET `/`
+Response: An array of inventory items in the format:
+- "productId"
+- "sellerId"
+- "quantity"
+
+#### POST `/add`
+Body:
+- "productId"
+- "sellerId"
+- "quantity"
+
+#### GET `/<productId>`
+Response:
+- "productId"
+- "sellerId"
+- "quantity"
+
+### Orders
+#### GET `/`
+Response: An array of orders in the format:
+- "productId"
+- "quantity"
+- "price"
+
+#### POST `/new`
+Body:
+- "productId"
+- "quantity"
+- "price"
+
+#### GET `/<orderId>`
+Response:
+- "productId"
+- "quantity"
+- "price"

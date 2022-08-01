@@ -1,4 +1,4 @@
-const {getAmount, addAmount, withdrawAmount} = require('../modules/db')
+const {getAmount, depositAmount, withdrawAmount} = require('../modules/db')
 const {check, validationResult} = require('express-validator')
 const router = require('express').Router()
 
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 	} catch (err) {console.log(err)}
 })
 
-router.post('/add', [
+router.post('/deposit', [
 	check('amount').isInt()
 ], async (req, res) => {
 	const errors = validationResult(req)
@@ -21,7 +21,7 @@ router.post('/add', [
 		return res.status(400).json({'error': errors.array()})
 	}
 
-	await addAmount(req.body.userId, req.body.amount)
+	await depositAmount(req.body.userId, req.body.amount)
 	return res.status(200).json({'msg': 'Amount credited'})
 })
 

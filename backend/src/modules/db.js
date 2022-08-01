@@ -33,7 +33,7 @@ const getAmount = async (id) => {
 	} catch (err) {console.log(err)}
 }
 
-const addAmount = async (id, amount) => {
+const depositAmount = async (id, amount) => {
 	try {
 		await pool.query('INSERT INTO transactions (user_id, transfer_type, amount) VALUES ($1, $2, $3)', [id, 'credit', amount])
 		return console.log('Amount credited')
@@ -82,7 +82,7 @@ const listInventoryItems = async () => {
 
 const addInventoryItem = async (productId, sellerId, quantity) => {
 	try {
-		await pool.query('INSERT INTO inventory VALUES ($1, $2, $3)', [productId, sellerId, quantity])
+		await pool.query('INSERT INTO inventory VALUES ($1, $2, $3) ON CONFLICT product_id DO UPDATE SET quantity = $4', [productId, sellerId, quantity, quantity])
 		return console.log('Inventory item added')
 	} catch (err) {console.log(err)}
 }
@@ -121,7 +121,7 @@ const getOrder = async (id) => {
 
 module.exports = {
 	getUser, createUser, createProduct,
-	getAmount, addAmount, withdrawAmount,
+	getAmount, depositAmount, withdrawAmount,
 	listProducts, createProduct, getProduct,
 	listInventoryItems, addInventoryItem, getInventoryItem,
 	listOrders, getOrder, createOrder
