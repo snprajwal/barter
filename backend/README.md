@@ -30,7 +30,7 @@ All requests must contain the header `Authorization: Bearer <accessToken>`.
 ### GET `/`
 Redirects to `/products`
 
-### Products
+### `/products`
 #### GET `/`
 Response: An array of products in the format:
 - "name"
@@ -46,7 +46,7 @@ Response:
 - "name"
 - "price"
 
-### Wallet
+### `/wallet`
 #### GET `/`
 Response:
 - "balance"
@@ -59,7 +59,7 @@ Body:
 Body:
 - "amount"
 
-### Inventory
+### `/inventory`
 #### GET `/`
 Response: An array of inventory items in the format:
 - "productId"
@@ -78,7 +78,7 @@ Response:
 - "sellerId"
 - "quantity"
 
-### Orders
+### `/orders`
 #### GET `/`
 Response: An array of orders in the format:
 - "productId"
