@@ -50,7 +50,7 @@ const withdrawAmount = async (id, amount) => {
 // Products
 const listProducts = async () => {
 	try {
-		const res = await pool.query('SELECT name, price FROM products')
+		const res = await pool.query('SELECT * FROM products')
 		if (!res.rows.length) {return null}
 		return res.rows
 	} catch (err) {console.log(err)}
@@ -65,7 +65,7 @@ const createProduct = async (name, price) => {
 
 const getProduct = async (id) => {
 	try {
-		const res = await pool.query('SELECT name, price FROM products WHERE id = $1', [id])
+		const res = await pool.query('SELECT * FROM products WHERE id = $1', [id])
 		if (!res.rows[0]) {return null}
 		return res.rows[0]
 	} catch (err) {console.log(err)}

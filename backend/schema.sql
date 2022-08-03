@@ -21,7 +21,8 @@ CREATE TABLE transactions (
 	id SERIAL PRIMARY KEY,
 	user_id INT REFERENCES users,
 	transfer_type TRANSACTION_TYPE,
-	amount INT
+	amount INT,
+	created_at DATE DEFAULT NOW()
 );
 
 CREATE TABLE products (
@@ -41,5 +42,12 @@ CREATE TABLE orders (
 	buyer_id INT REFERENCES users,
 	product_id INT REFERENCES products,
 	quantity INT,
-	price INT
+	price INT,
+	created_at DATE DEFAULT NOW()
+);
+
+CREATE TABLE delivery (
+	order_id PRIMARY KEY REFERENCES orders,
+	due_at DATE DEFAULT NOW() + INTERVAL '2 days',
+	delivered_at DATE
 );
