@@ -2,7 +2,7 @@ const {listOrders, createOrder, getOrder} = require('../modules/db')
 const {check, validationResult} = require('express-validator')
 const router = require('express').Router()
 
-router.get('/', async (_, res) => {
+router.get('/', async (req, res) => {
 	try {
 		const orders = await listOrders(req.body.userId)
 		if (!orders) {
